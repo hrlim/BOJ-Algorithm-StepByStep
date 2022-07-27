@@ -20,7 +20,7 @@ public class Q17478 {
 
     public static void recursive(int N, String tap) {
         sb.append(tap).append("\"재귀함수가 뭔가요?\"\n");
-        if(N == 0){
+        if (N == 0) {
             sb.append(tap);
             sb.append("\"재귀함수는 자기 자신을 호출하는 함수라네\"\n");
             sb.append(tap).append("라고 답변하였지.\n");
