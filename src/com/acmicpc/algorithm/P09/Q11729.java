@@ -17,6 +17,7 @@ public class Q11729 {
 
     static int res = 0;
     static StringBuilder sb = new StringBuilder();
+
     /**
      * @param N         하노이탑 높이
      * @param start     시작 기둥
