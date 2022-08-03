@@ -1,8 +1,6 @@
 package com.acmicpc.algorithm.P17;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.StringTokenizer;
 
 /**
@@ -10,7 +8,11 @@ import java.util.StringTokenizer;
  */
 public class Q16139 {
     public static void main(String[] args) throws IOException {
+        StringBuilder sb = new StringBuilder();
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
         char[] S = br.readLine().toCharArray();
 
         int[][] arr = new int[S.length + 1][27];
@@ -32,9 +34,13 @@ public class Q16139 {
             int start = stringToInt(st.nextToken());
             int end = stringToInt(st.nextToken());
 
-            System.out.println(arr[end + 1][alpha] - arr[start][alpha]);
+            sb.append(arr[end + 1][alpha] - arr[start][alpha]).append("\n");
 
         }
+        bw.write(sb.toString());
+        bw.flush();
+        bw.close();
+        br.close();
     }
 
     static int stringToInt(String s) {
