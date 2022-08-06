@@ -1,8 +1,6 @@
 package com.acmicpc.algorithm.P20;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.StringTokenizer;
 
 /**
@@ -13,6 +11,7 @@ public class Q18258 {
     public static int rear = 0;
     public static int front = 0;
     public static int size = 0;
+
     public static void main(String[] args) throws IOException {
         StringBuilder sb = new StringBuilder();
 

@@ -1,8 +1,6 @@
 package com.acmicpc.algorithm.P19;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.StringTokenizer;
 
 /**
@@ -11,6 +9,7 @@ import java.util.StringTokenizer;
 public class Q10828 {
     private static int[] stack = new int[10_000];
     private static int top = -1;
+
     public static void main(String[] args) throws IOException {
         StringBuilder sb = new StringBuilder();
 
@@ -46,7 +45,7 @@ public class Q10828 {
     }
 
     static void push(int X) {
-        top ++;
+        top++;
         stack[top] = X;
     }
 
