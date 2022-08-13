@@ -3,12 +3,13 @@ package com.acmicpc.algorithm.P25;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.StringTokenizer;
 
 /**
- * 알고리즘 수업 - 깊이 우선 탐색 1
+ * 알고리즘 수업 - 깊이 우선 탐색 2
  */
-public class Q24479 {
+public class Q24480 {
 
     static ArrayList<Integer> map[];
     static int[] isVisited;
@@ -42,7 +43,7 @@ public class Q24479 {
         }
 
         for (int i = 1; i < map.length; i++) {
-            Collections.sort(map[i]);
+            Collections.sort(map[i], Comparator.reverseOrder());
         }
 
         dfs(R);

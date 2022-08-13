@@ -52,16 +52,18 @@ public class Q24444 {
 
     static void bfs(int start) {
         Queue<Integer> queue = new LinkedList<>();
-        queue.add(start);
-
         int cnt = 1;
+
+        queue.offer(start);
+        visitOrders[start] = cnt++;
+
         while (!queue.isEmpty()) {
             int tmp = queue.poll();
-            if (visitOrders[tmp] != 0) continue;
-            visitOrders[tmp] = cnt++;
             for (Integer pos : map[tmp]) {
                 if(visitOrders[pos] != 0) continue;
-                queue.add(pos);
+
+                queue.offer(pos);
+                visitOrders[pos] = cnt++;
             }
         }
     }

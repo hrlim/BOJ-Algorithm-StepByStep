@@ -1,19 +1,14 @@
 package com.acmicpc.algorithm.P25;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.StringTokenizer;
+import java.util.*;
 
 /**
- * 알고리즘 수업 - 깊이 우선 탐색 1
+ * 알고리즘 수업 - 너비 우선 탐색 1
  */
-public class Q24479 {
-
+public class Q24445 {
     static ArrayList<Integer> map[];
-    static int[] isVisited;
-
-    static int dfsCount = 1;
+    static int[] visitOrders;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -27,7 +22,7 @@ public class Q24479 {
         int R = stringToInt(st.nextToken());
 
         map = new ArrayList[N + 1];
-        isVisited = new int[N + 1];
+        visitOrders = new int[N + 1];
 
         for (int i = 1; i <= N; i++) {
             map[i] = new ArrayList<>();
@@ -42,26 +37,34 @@ public class Q24479 {
         }
 
         for (int i = 1; i < map.length; i++) {
-            Collections.sort(map[i]);
+            Collections.sort(map[i], Comparator.reverseOrder());
         }
 
-        dfs(R);
-
-        for (int i = 1; i <=N ; i++) {
-            bw.write(isVisited[i] + "\n");
+        bfs(R);
+        for (int i = 1; i <= N; i++) {
+            bw.write(visitOrders[i] + "\n");
         }
         bw.flush();
         bw.close();
         br.close();
+
     }
 
-    static void dfs(int start) {
+    static void bfs(int start) {
+        Queue<Integer> queue = new LinkedList<>();
+        int cnt = 1;
 
-        isVisited[start] = dfsCount++;
-        for (Integer pos : map[start]) {
-            if(isVisited[pos] != 0)
-                continue;
-            dfs(pos);
+        queue.offer(start);
+        visitOrders[start] = cnt++;
+
+        while (!queue.isEmpty()) {
+            int tmp = queue.poll();
+            for (Integer pos : map[tmp]) {
+                if(visitOrders[pos] != 0) continue;
+                
+                queue.offer(pos);
+                visitOrders[pos] = cnt++;
+            }
         }
     }
 
