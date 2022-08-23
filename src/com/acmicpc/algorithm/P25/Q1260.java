@@ -8,61 +8,55 @@ import java.util.*;
  */
 public class Q1260 {
 
-    static ArrayList<ArrayList<Integer>> map = new ArrayList<>();
-    static int[] isVisited;
-
-    static int dfsCount = 1;
+    static ArrayList<ArrayList<Integer>> adjList = new ArrayList<>();
+    static boolean[] isVisited;
+    static StringBuilder sb = new StringBuilder();
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        StringBuilder sb = new StringBuilder();
         StringTokenizer st = new StringTokenizer(br.readLine());
 
         int N = stringToInt(st.nextToken());
         int M = stringToInt(st.nextToken());
-        int R = stringToInt(st.nextToken());
+        int V = stringToInt(st.nextToken());
 
-        isVisited = new int[N + 1];
+        isVisited = new boolean[N + 1];
 
         for(int i = 0; i <= N; i++){
-            map.add(new ArrayList<>());
+            adjList.add(new ArrayList<>());
         }
 
         for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
             int start = stringToInt(st.nextToken());
             int end = stringToInt(st.nextToken());
-            map.get(start).add(end);
-            map.get(end).add(start);
+            adjList.get(start).add(end);
+            adjList.get(end).add(start);
         }
 
-        for (int i = 1; i < map.size(); i++) {
-            Collections.sort(map.get(i));
+        for (int i = 1; i < adjList.size(); i++) {
+            Collections.sort(adjList.get(i));
         }
 
-        dfs(R);
-        for (int i = 1; i <= N; i++) {
-            bw.write(isVisited[i] + " ");
-        }
-        bw.write("\n");
+        dfs(V);
+        sb.append("\n");
 
-        Arrays.fill(isVisited, 0);
-        bfs(R);
+        Arrays.fill(isVisited, false);
+        bfs(V);
 
-        for (int i = 1; i <= N; i++) {
-            bw.write(isVisited[i] + " ");
-        }
+        bw.write(sb.toString());
         bw.flush();
         bw.close();
         br.close();
     }
 
     static void dfs(int start) {
-        isVisited[start] = dfsCount++;
-        for (Integer pos : map.get(start)) {
-            if (isVisited[pos] == 0)
+        isVisited[start] = true;
+        sb.append(start).append(" ");
+        for (Integer pos : adjList.get(start)) {
+            if (isVisited[pos]) continue;
                 dfs(pos);
         }
     }
@@ -71,18 +65,18 @@ public class Q1260 {
         Queue<Integer> queue = new LinkedList<>();
         queue.add(start);
 
-        int cnt = 1;
-        isVisited[start] = cnt;
+        isVisited[start] = true;
         while (!queue.isEmpty()) {
-            int tmp = queue.poll();
-            for (Integer pos : map.get(tmp)) {
-                if (isVisited[pos] != 0) continue;
-                isVisited[pos] = ++cnt;
+            int cur = queue.poll();
+            sb.append(cur).append(" ");
+
+            for (Integer pos : adjList.get(cur)) {
+                if (isVisited[pos]) continue;
+                isVisited[pos] = true;
                 queue.add(pos);
             }
         }
     }
-
 
     static int stringToInt(String s) {
         return Integer.parseInt(s);

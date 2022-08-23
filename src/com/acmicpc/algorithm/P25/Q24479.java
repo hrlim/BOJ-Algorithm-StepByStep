@@ -10,7 +10,7 @@ import java.util.StringTokenizer;
  */
 public class Q24479 {
 
-    static ArrayList<Integer> map[];
+    static ArrayList<Integer> adjList[];
     static int[] isVisited;
 
     static int dfsCount = 1;
@@ -19,30 +19,29 @@ public class Q24479 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        StringBuilder sb = new StringBuilder();
         StringTokenizer st = new StringTokenizer(br.readLine());
 
         int N = stringToInt(st.nextToken());
         int M = stringToInt(st.nextToken());
         int R = stringToInt(st.nextToken());
 
-        map = new ArrayList[N + 1];
+        adjList = new ArrayList[N + 1];
         isVisited = new int[N + 1];
 
         for (int i = 1; i <= N; i++) {
-            map[i] = new ArrayList<>();
+            adjList[i] = new ArrayList<>();
         }
 
         for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
             int start = stringToInt(st.nextToken());
             int end = stringToInt(st.nextToken());
-            map[start].add(end);
-            map[end].add(start);
+            adjList[start].add(end);
+            adjList[end].add(start);
         }
 
-        for (int i = 1; i < map.length; i++) {
-            Collections.sort(map[i]);
+        for (int i = 1; i < adjList.length; i++) {
+            Collections.sort(adjList[i]);
         }
 
         dfs(R);
@@ -50,6 +49,7 @@ public class Q24479 {
         for (int i = 1; i <=N ; i++) {
             bw.write(isVisited[i] + "\n");
         }
+
         bw.flush();
         bw.close();
         br.close();
@@ -58,9 +58,8 @@ public class Q24479 {
     static void dfs(int start) {
 
         isVisited[start] = dfsCount++;
-        for (Integer pos : map[start]) {
-            if(isVisited[pos] != 0)
-                continue;
+        for (Integer pos : adjList[start]) {
+            if(isVisited[pos] != 0) continue;
             dfs(pos);
         }
     }
