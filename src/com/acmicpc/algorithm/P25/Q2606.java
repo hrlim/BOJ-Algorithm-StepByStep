@@ -10,19 +10,21 @@ import java.util.StringTokenizer;
  * 너비우선탐색, 그래프
  */
 
-class Node {
-    int to;
-    Node next;
-
-    public Node(int to, Node next) {
-        this.to = to;
-        this.next = next;
-    }
-}
 
 public class Q2606 {
 
     static int N, M;
+
+    static class Node {
+        int to;
+        Node next;
+
+        public Node(int to, Node next) {
+            this.to = to;
+            this.next = next;
+        }
+    }
+
     static Node[] adjList;
 
     // 상하좌우
